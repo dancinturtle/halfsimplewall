@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login and Registration</title>
+  {% include 'header.html' %}
+</head>
+
+<body>
+  <div class="container">
+    
+
+
+    <h1>Login and Registration</h1>
+    {% with messages = get_flashed_messages(category_filter="register") %}{% if messages %} {% for message in messages %} <p class="red">{{message}}</p>{% endfor %}{% endif %} {%endwith%}
+    <div class="row">
+      <div class="col-md-5">
+        <h2>Register here!</h2>
+        <form action="/createUser" method="post">
+          <div class="form-group {% with messages = get_flashed_messages(category_filter=['first_name']) %} {% if messages %} has-error {% endif %} {% endwith %}">
+             
+            <label for="first_name">First name:</label>
+            {% with messages = get_flashed_messages(category_filter=['first_name']) %} {% if messages %} {% for message in messages %}<p class="red">{{message}}</p>{%endfor%} {% endif %} {% endwith %}
+            <input type="text" name="first_name" class="form-control"
+             {% with messages = get_flashed_messages(category_filter = ['badfirst']) %}{% if messages %} value="{{messages[0]}}" {% endif %}{% endwith %}/>
+          </div>
+          <div class="form-group {% with messages = get_flashed_messages(category_filter=['last_name']) %} {% if messages %} has-error {% endif %} {% endwith %}">
+            <label for="last_name">Last name:</label>
+            {% with messages = get_flashed_messages(category_filter=['last_name']) %} {% if messages %} {% for message in messages %}<p class="red">{{message}}</p>{%endfor%} {% endif %} {% endwith %}
+            <input type="text" name="last_name" class="form-control" {% with messages = get_flashed_messages(category_filter = ['badlast']) %}{% if messages %} value="{{messages[0]}}" {% endif %}{% endwith %}  />
+          </div>
+          <div class="form-group {% with messages = get_flashed_messages(category_filter=['email']) %} {% if messages %} has-error {% endif %} {% endwith %}">
+            <label for="email">Email:</label>
+            {% with messages = get_flashed_messages(category_filter=['email']) %} {% if messages %} {% for message in messages %}<p class="red">{{message}}</p>{%endfor%} {% endif %} {% endwith %}
+            <input type="text" name="email" class="form-control"  {% with messages = get_flashed_messages(category_filter = ['bademail']) %}{% if messages %} value="{{messages[0]}}" {% endif %}{% endwith %}/>
+          </div>
+          <div class="form-group {% with messages = get_flashed_messages(category_filter=['password', 'confirm']) %} {% if messages %} has-error {% endif %} {% endwith %}">
+            <label for="password">Password:</label>
+            {% with messages = get_flashed_messages(category_filter=['password']) %} {% if messages %} {% for message in messages %}<p class="red">{{message}}</p>{%endfor%} {% endif %} {% endwith %}
+            <input type="password" name="password" class="form-control" />
+          </div>
+          <div class="form-group {% with messages = get_flashed_messages(category_filter=['password', 'confirm']) %} {% if messages %} has-error {% endif %} {% endwith %}">
+            <label for="confirm">Confirm password:</label>
+            {% with messages = get_flashed_messages(category_filter=['confirm']) %} {% if messages %} {% for message in messages %}<p class="red">{{message}}</p>{%endfor%} {% endif %} {% endwith %}
+            <input type="password" name="confirm" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-success">Register!</button>
+
+        </form>
+      </div>
+      <div class="col-md-offset-2 col-md-5">
+        <h2>Login here!</h2>
+        {% with messages = get_flashed_messages(category_filter = ["login"]) %} {% if messages %} {% for message in messages %}
+        <p class="red">{{message}}</p>
+        {% endfor %} {% endif %} {% endwith %}
+        <form action="/login" method="post">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" name="email" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-success">Login!</button>
+
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.comments {
+  margin-left: 20px;
+  }
+.red {
+  color: red;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+.navigation {
+  padding: 20px;
+  background-color: black;
+  color: white;
+}
+
+.navigation h3 {
+  display: inline-block;
+  text-align: right;
+}
+.content {
+  display: inline-block;
+}
+.sendMessage h5, .sendMessage form {
+  display: inline-block;
+}
+.sendMessage {
+  margin: 5px;
+}

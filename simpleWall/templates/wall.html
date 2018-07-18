@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    {% include 'header.html' %}
+</head>
+
+<body>
+    <nav class="navigation">
+        <div class="row">
+            <div class="col-md-3">
+
+                <h3>Coding Dojo Wall (Simplified)</h3>
+            </div>
+            <div class="col-md-offset-6 col-md-3">
+
+                <h3>Welcome, {{session.username}}!</h3>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+
+        {% with messages = get_flashed_messages(with_categories = true) %} {% if messages %} {% for category, message in messages
+        %}
+        <p class="{{category}}">{{message}}</p>
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="row">
+
+            <div class="col-md-6">
+                <h3>3 message(s) for you, Kermit</h3>
+                <div class="message">
+                    <div class="content">
+                        <h5>Lisa said (3 hours ago):</h5>
+                        <p>Hey, how are you?</p>
+                    </div>
+                    <i class="far fa-trash-alt"></i>
+                </div>
+                <div class="message">
+                    <div class="content">
+                        <h5>Joe said (5 hours ago):</h5>
+                        <p>Howdy</p>
+                    </div>
+                    <i class="far fa-trash-alt"></i>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>You have sent a total of 7 messages so far</h3>
+                {% for user in users %}
+                <div class="sendMessage row">
+                    <div class="col-md-3">
+                        <h5>{{user.first_name}}</h5>
+                    </div>
+                    <div class="col-md-9">
+
+                        <form class="form-inline" action="/message" method="post">
+                            <textarea class="form-control" cols="30" rows="3" name="content"></textarea>
+                            <input type="hidden" value="{{user.id}}" name="recipient">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+</body>
+
+</html>

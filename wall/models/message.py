@@ -1,6 +1,6 @@
 from wall import app
 from wall.config.mysqlconnection import connectToMySQL
-mysql = connectToMySQL()
+
 
 
 class Message:

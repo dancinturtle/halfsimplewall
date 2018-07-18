@@ -1,5 +1,4 @@
-from wall import app
-from flask import session
-app.secret_key = "rainbowswithapotofgold"
-from wall.config import routes
-app.run(debug=True)
+from simpleWall import app
+from simpleWall.config import routes
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -19,17 +19,6 @@ class Users:
             session['userid'] = result[1]
             return redirect('/wall')
         return redirect("/")
-    def login(self, loginUser):
-        result = user.retrieveOneByEmail(loginUser)
-        if result[0]:
-            session['username'] = result[1]
-            session['userid'] = result[2]
-            flash("You have successfully logged in!", 'success')
-            return redirect('/wall')
-        else:
-            flash("We're sorry, we could not log you in", "login")
-            return redirect('/')
+    
     def logout(self):
-        session.clear()
-        flash("You have been logged out", "register")
-        return redirect('/')
+       
