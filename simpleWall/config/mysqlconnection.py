@@ -27,6 +27,8 @@ class MySQLConnection:
                 # elif query[0:6].lower() == 'insert':
                 else:
                     self.connection.commit()
+                cursor.close()
+                self.connection.close()
             except Exception as e:
                 print("Something went wrong", e)
                 return False
