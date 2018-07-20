@@ -34,6 +34,8 @@ class MySQLConnection:
             except Exception as e:
                 print("Something went wrong", e)
                 return False
+    def __del__(self):
+        self.connection.close()
 
 def connectToMySQL(db):
     return MySQLConnection(db)
