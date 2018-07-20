@@ -13,9 +13,6 @@ def friendly_time(dt, past_="ago",
     or "time until" e.g.
     3 days ago, 5 hours from now etc.
     """
-    print("working with this dt", dt)
-    now = datetime.now()
-    print("working with this now", now)
     if now > dt:
         diff = now - dt
         dt_is_past = True
@@ -32,10 +29,9 @@ def friendly_time(dt, past_="ago",
         (diff.seconds / 60, "minute", "minutes"),
         (diff.seconds, "second", "seconds"),
     )
-    print("periods", periods)
+    
 
     for period, singular, plural in periods:
-        print("here's what we got", period, singular, plural)
         
         if period >= 1:
             return "%d %s %s" % (period, \
