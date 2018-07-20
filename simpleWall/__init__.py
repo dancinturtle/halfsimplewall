@@ -35,7 +35,7 @@ def friendly_time(dt, past_="ago",
     
 
     for period, singular, plural in periods:
-        print("here's what we got", period, singular, plural)
+        
         
         if period >= 1:
             return "%d %s %s" % (period, \

@@ -20,14 +20,16 @@ class MySQLConnection:
                 # if query[0:6].lower() == 'select':
                 if query.lower().find("insert") >= 0:
                     self.connection.commit()
+                    cursor.close()
                     return cursor.lastrowid
                 elif query.lower().find("select") >= 0:
                     result = cursor.fetchall()
+                    cursor.close()
                     return result
                 # elif query[0:6].lower() == 'insert':
                 else:
                     self.connection.commit()
-                cursor.close()
+                    cursor.close()
                 # self.connection.close()
             except Exception as e:
                 print("Something went wrong", e)
