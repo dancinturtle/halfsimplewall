@@ -28,7 +28,7 @@ class MySQLConnection:
                 else:
                     self.connection.commit()
                 cursor.close()
-                self.connection.close()
+                # self.connection.close()
             except Exception as e:
                 print("Something went wrong", e)
                 return False

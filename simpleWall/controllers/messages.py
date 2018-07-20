@@ -19,6 +19,10 @@ class Messages:
         count = message.totalMessages(session['userid'])
         messages = message.getMessages(session['userid'])
         result = message.getUsers(session['userid'])
+        print("sent messages", sentMessages)
+        print("count", count)
+        print("messages", messages)
+        print("result", result)
         return render_template("wall.html", array = [1,2,3,4,5], users = result, messages = messages, count = count[0], sent = sentMessages[0]['sent'])
     def create(self, data):
         if self.checklogin() == False:
