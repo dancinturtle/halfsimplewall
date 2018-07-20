@@ -34,4 +34,7 @@ def wall():
 @app.route('/message', methods=['POST'])
 def createMessage():
     return messages.create(request.form)
+@app.route('/messages/delete/<id>')
+def delete(id):
+    return messages.delete(id)
     

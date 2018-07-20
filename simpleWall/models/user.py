@@ -49,5 +49,11 @@ class User:
             if bcrypt.check_password_hash(result[0]['pw_hash'], form_data['password']):
                 return (True, result[0])
         return (False, "You could not be logged in")
+    def getUser(self, user_id):
+        query = "SELECT * FROM users WHERE id = %(id)s;"
+        data = {"id" : user_id}
+        result = mysql.query_db(query, data)
+        return result
+
 
 

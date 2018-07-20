@@ -7,7 +7,8 @@ class MySQLConnection:
                                     password='rootroot',
                                     db=db,
                                     charset='utf8mb4',
-                                    cursorclass=pymysql.cursors.DictCursor)
+                                    cursorclass=pymysql.cursors.DictCursor,
+                                    autocommit = True)
         self.connection = connection
     def query_db(self, query, data=None):
         with self.connection.cursor() as cursor:
