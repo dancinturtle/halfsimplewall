@@ -13,27 +13,32 @@ class MySQLConnection:
     def query_db(self, query, data=None):
         with self.connection.cursor() as cursor:
             try:
+                query = cursor.mogrify(query, data)
                 # executable = cursor.execute(query, data)
                 executable = cursor.execute(query, data)
                 # use matching to find if find()
-                print("Running this query", executable)
+                print("Running this query", query)
                 # if query[0:6].lower() == 'select':
                 if query.lower().find("insert") >= 0:
                     self.connection.commit()
-                    cursor.close()
+                    # cursor.close()
+                    print("insert", cursor.lastrowid)
                     return cursor.lastrowid
                 elif query.lower().find("select") >= 0:
                     result = cursor.fetchall()
-                    cursor.close()
+                    # cursor.close()
+                    print("select", result)
                     return result
                 # elif query[0:6].lower() == 'insert':
                 else:
                     self.connection.commit()
-                    cursor.close()
+                    # cursor.close()
                 # self.connection.close()
             except Exception as e:
                 print("Something went wrong", e)
                 return False
+            # finally:
+            #     self.connection.close()
     def __del__(self):
         self.connection.close()
 

@@ -3,7 +3,7 @@ import re
 from simpleWall import app
 bcrypt = Bcrypt(app)
 from simpleWall.config.mysqlconnection import connectToMySQL
-mysql = connectToMySQL('simpleWall')
+# mysql = connectToMySQL('simpleWall')
 
 class User:
     def create(self, data):
@@ -25,8 +25,13 @@ class User:
         if data['confirm'] and data['password'] != data['confirm']:
             errors.append(("Passwords must match", "confirm"))
         if len(errors) == 0:
-            unique = mysql.query_db("SELECT * FROM users WHERE email = %s;", data['email'])
+            mysql = connectToMySQL('simpleWall')
+            query = "SELECT * FROM users WHERE email = %(email)s;"
+            datar = {"email": data['email']}
+            unique = mysql.query_db(query, datar)
+
             if unique:
+                print("Woah this email was already found")
                 errors.append(("This email has already been taken", "email"))
             else:
                 pw_hash = bcrypt.generate_password_hash(data['password'])
@@ -35,6 +40,7 @@ class User:
                             "last_name" : data["last_name"],
                             "email" : data["email"],
                             "pw_hash" : pw_hash}
+                mysql = connectToMySQL('simpleWall')
                 created = mysql.query_db(query, newuser)
                 if created:
                     return (True, created)
@@ -44,12 +50,14 @@ class User:
     def login(self, form_data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         data = {"email" : form_data['email']}
+        mysql = connectToMySQL('simpleWall')
         result = mysql.query_db(query, data)
         if result:
             if bcrypt.check_password_hash(result[0]['pw_hash'], form_data['password']):
                 return (True, result[0])
         return (False, "You could not be logged in")
     def getUser(self, user_id):
+        mysql = connectToMySQL('simpleWall')
         query = "SELECT * FROM users WHERE id = %(id)s;"
         data = {"id" : user_id}
         result = mysql.query_db(query, data)
